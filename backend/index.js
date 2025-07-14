@@ -13,6 +13,7 @@ const DetailSchema = new mongoose.Schema({
   email: { type: String, required: true },
   phone: { type: Number, required: true },
   dob: { type: String },
+  student: { type: string, default: "student" },
   gender: { type: String },
   guardianName: { type: String },
   guardianPhone: { type: Number },
@@ -23,6 +24,8 @@ const DetailSchema = new mongoose.Schema({
   year: { type: String },
   college: { type: String },
   course: { type: String },
+  designation: { type: String },
+  company: { type: String },
   source: { type: String },
 });
 
@@ -33,17 +36,15 @@ const corsOption = {
 };
 app.use(cors(corsOption));
 app.use(express.json());
-app.post("/api/details/add", async(req, res) => {
+app.post("/api/details/add", async (req, res) => {
   try {
     console.log(req.body);
-    const dataToAdd=new DetailModel(req.body);
-    await dataToAdd.save()
-    res.status(200).send("Data Added")
-    
+    const dataToAdd = new DetailModel(req.body);
+    await dataToAdd.save();
+    res.status(200).send("Data Added");
   } catch (error) {
     console.log(error);
-    res.status(500).send("There is an error",error.message);
-    
+    res.status(500).send("There is an error", error.message);
   }
 });
 

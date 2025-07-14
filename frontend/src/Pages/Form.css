@@ -36,6 +36,10 @@ label {
     /* display: flex; */
 
 }
+.socialMedia{
+  width: 100% !important;
+  gap: 0px !important;
+}
 
 .boxAddress{
       /* margin-bottom: 6px; */

@@ -15,13 +15,17 @@ function Form() {
     localAddress: "",
     permanentAddress: "",
     status: "student",
-    student:"",
-    working:"",
+    student: "",
+    working: "",
     qualification: "",
+    otherCourse: "",
+    designation: "",
+    company: "",
     year: "",
     college: "",
     course: "",
     source: "",
+    friend: "",
   });
 
   function handleFormData(e) {
@@ -48,7 +52,7 @@ function Form() {
           updatedData.college = "";
         }
         if (name === "status" && value === "working") {
-          updatedData.desgination = "";
+          updatedData.designation = "";
           updatedData.company = "";
         }
         return updatedData;
@@ -257,7 +261,7 @@ function Form() {
               </div>
             </div>
           )}
-           {formData.status === "working" && (
+          {formData.status === "working" && (
             <div>
               <div className="form-group">
                 <label>Designation</label>
@@ -267,7 +271,7 @@ function Form() {
                   placeholder="Enter your Designation"
                   value={formData.designation}
                   onChange={handleFormData}
-                  />
+                />
               </div>
               <div className="form-group">
                 <label>Company</label>
@@ -277,9 +281,8 @@ function Form() {
                   placeholder="Enter your Company name"
                   value={formData.company}
                   onChange={handleFormData}
-                  />
+                />
               </div>
-            
             </div>
           )}
         </div>
@@ -317,6 +320,19 @@ function Form() {
               ))}
             </select>
           </div>
+          {formData.course === "Other Course" && (
+            <div className="form-group">
+              <label>Enter your course</label>
+              <input
+                type="text"
+                name="otherCourse"
+                placeholder="Enter your course Name"
+                value={formData.otherCourse}
+                onChange={handleFormData}
+              />
+            </div>
+          )}
+
           <div className="form-group">
             <label>How did you come to know about us?</label>
             <div className="radio-group socialMedia">
@@ -336,6 +352,18 @@ function Form() {
               )}
             </div>
           </div>
+          {formData.source === "Friend" && (
+            <div className="form-group">
+              <label>Friend's Name:</label>
+              <input
+                type="text"
+                name="friend"
+                placeholder="Friend's Name"
+                value={formData.friend}
+                onChange={handleFormData}
+              />
+            </div>
+          )}
         </div>
 
         {/* Submit Section */}

@@ -15,17 +15,15 @@ function Form() {
     localAddress: "",
     permanentAddress: "",
     status: "student",
-    student: "",
-    working: "",
     qualification: "",
-    otherCourse: "",
-    designation: "",
-    company: "",
     year: "",
     college: "",
+    designation: "",
+    company: "",
     course: "",
+    otherCourse: "",
     source: "",
-    friend: "",
+    friendName: "",
   });
 
   function handleFormData(e) {
@@ -62,8 +60,15 @@ function Form() {
 
   async function handleSubmitData(e) {
     e.preventDefault();
+    const finalData = {
+      ...formData,
+      course:
+        formData.course === "Other Course" ? formData.customCourse : formData.course,
+      friendName:
+        formData.source === "Friend" ? formData.friendName : "",
+    };
     try {
-      const response = await instance.post("/details/add", formData);
+      const response = await instance.post("/api/details/add", finalData);
       if (response.status === 200) {
         setMessage({
           type: "success",
@@ -79,7 +84,7 @@ function Form() {
     }
   }
 
-  return (
+return (
     <form onSubmit={handleSubmitData}>
       <div className="form-wrapper">
         {/* Personal Details */}
@@ -207,24 +212,30 @@ function Form() {
           <div className="form-group">
             <label>Status</label>
             <div className="radio-group">
+
               <input
                 type="radio"
                 name="status"
                 value="student"
                 checked={formData.status === "student"}
                 onChange={handleFormData}
+
               />
               <label htmlFor="">Student</label>
+
             </div>
             <div className="radio-group">
+
               <input
                 type="radio"
                 name="status"
                 value="working"
                 checked={formData.status === "working"}
                 onChange={handleFormData}
+
               />
-              <label htmlFor="">Working Professional</label>
+              <label htmlFor="">Working</label>
+
             </div>
           </div>
           {formData.status === "student" && (
@@ -242,7 +253,7 @@ function Form() {
               <div className="form-group">
                 <label>Year</label>
                 <input
-                  type="text"
+                  type="number"
                   name="year"
                   placeholder="Year of completion"
                   value={formData.year}
@@ -268,7 +279,7 @@ function Form() {
                 <input
                   type="text"
                   name="designation"
-                  placeholder="Enter your Designation"
+                  placeholder="Enter your designation"
                   value={formData.designation}
                   onChange={handleFormData}
                 />
@@ -278,7 +289,7 @@ function Form() {
                 <input
                   type="text"
                   name="company"
-                  placeholder="Enter your Company name"
+                  placeholder="Enter your Company Name"
                   value={formData.company}
                   onChange={handleFormData}
                 />
@@ -325,14 +336,13 @@ function Form() {
               <label>Enter your course</label>
               <input
                 type="text"
-                name="otherCourse"
-                placeholder="Enter your course Name"
-                value={formData.otherCourse}
+                name="customCourse"
+                placeholder="Enter the course name"
+                value={formData.customCourse}
                 onChange={handleFormData}
               />
             </div>
           )}
-
           <div className="form-group">
             <label>How did you come to know about us?</label>
             <div className="radio-group socialMedia">
@@ -357,9 +367,9 @@ function Form() {
               <label>Friend's Name:</label>
               <input
                 type="text"
-                name="friend"
-                placeholder="Friend's Name"
-                value={formData.friend}
+                name="friendName"
+                placeholder="Enter friend's name"
+                value={formData.friendName}
                 onChange={handleFormData}
               />
             </div>

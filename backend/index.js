@@ -5,14 +5,16 @@ import cors from "cors";
 import {connectToDB} from "./config/db.js";
 import studentRouter from "./routes/studentRoutes.js";
 
-const port = 4000;
+const port = process.env.PORT;
 const app = express();
 
 await connectToDB();
 
 
 const corsOption = {
-  origin: "http://localhost:5173",
+  origin: process.env.FRONTEND_URL,
+  methods:["GET","POST","PUT","DELETE"],
+  credentials:true
 };
 
 app.use(cors(corsOption));
